@@ -708,7 +708,17 @@ function handleSearch() {
   const last  = normalize(document.getElementById('lastName').value);
 
   if (!first && !last) {
-    showMessage('Please enter your first or last name to search.');
+    showMessage('Please enter your first and last name to search.');
+    return;
+  }
+  if (!first) {
+    showMessage('Please enter your first name.');
+    document.getElementById('firstName').focus();
+    return;
+  }
+  if (!last) {
+    showMessage('Please enter your last name.');
+    document.getElementById('lastName').focus();
     return;
   }
 
