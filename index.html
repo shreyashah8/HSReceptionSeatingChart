@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Reception Seating</title>
+  <title>Reception Seating – Find Your Table</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -18,6 +18,7 @@
       --text-mid: #6B5740;
       --text-light: #9C8060;
       --shadow: rgba(100, 70, 20, 0.12);
+      --focus-ring: 0 0 0 3px rgba(156,122,46,0.55);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -40,6 +41,33 @@
         radial-gradient(ellipse 60% 30% at 80% 100%, rgba(201,168,76,0.06) 0%, transparent 60%);
       pointer-events: none;
       z-index: 0;
+    }
+
+    /* Visible focus styles for keyboard/screen reader users */
+    :focus-visible {
+      outline: 2px solid var(--gold-dark);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* Skip link for keyboard/screen reader users */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      z-index: 9999;
+      background: var(--gold-dark);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      text-decoration: none;
+      transition: top 0.2s;
+    }
+    .skip-link:focus {
+      top: 16px;
     }
 
     .page-wrapper {
@@ -116,6 +144,10 @@
       text-align: center;
       line-height: 1.15;
       letter-spacing: 0.02em;
+      /* Prevent line-break mid-word causing rendering inconsistency */
+      white-space: nowrap;
+      font-variant-ligatures: none;
+      -webkit-font-smoothing: antialiased;
     }
 
     .header-sub {
@@ -211,7 +243,7 @@
 
     .field-wrap input:focus {
       border-color: var(--gold-muted);
-      box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+      box-shadow: var(--focus-ring);
     }
 
     .search-btn {
@@ -233,6 +265,10 @@
     }
 
     .search-btn:active { transform: scale(0.98); opacity: 0.9; }
+    .search-btn:focus-visible {
+      outline: 2px solid var(--gold-dark);
+      outline-offset: 3px;
+    }
 
     /* ── RESULTS ── */
     .results-section {
@@ -271,9 +307,18 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
     }
 
-    .match-item:active { background: var(--cream-dark); }
+    .match-item:active,
+    .match-item:hover { background: var(--cream-dark); }
+
+    .match-item:focus-visible {
+      outline: 2px solid var(--gold-dark);
+      outline-offset: 2px;
+    }
 
     .match-item .match-name {
       font-family: 'Cormorant Garamond', serif;
@@ -287,6 +332,7 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--gold);
+      /* Hide decorative arrow from screen readers */
     }
 
     /* Seat result */
@@ -354,6 +400,10 @@
     }
 
     .search-again-btn:active { border-color: var(--gold-muted); color: var(--gold-dark); }
+    .search-again-btn:focus-visible {
+      outline: 2px solid var(--gold-dark);
+      outline-offset: 3px;
+    }
 
     .not-found {
       text-align: center;
@@ -480,66 +530,130 @@
 </head>
 <body>
 
+<!-- Skip navigation link for screen readers and keyboard users -->
+<a href="#search-form" class="skip-link">Skip to seat finder</a>
+
 <div class="page-wrapper">
 
   <!-- HEADER -->
-  <header class="header">
-    <div class="logo-wrap">
-      <img src="logo.png" alt="Wedding Logo" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=\'logo-placeholder-icon\'>🌸</span>'" />
+  <header class="header" role="banner">
+    <div class="logo-wrap" role="img" aria-label="Wedding logo">
+      <img src="logo.png" alt="" role="presentation" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=\'logo-placeholder-icon\' aria-hidden=\'true\'>🌸</span>'" />
     </div>
-    <div class="ornament">Reception</div>
+    <p class="ornament" aria-hidden="true">Reception</p>
     <h1 class="header-title">Find Your Seat</h1>
-    <p class="header-sub">Enter your name below to discover<br>your table assignment</p>
+    <p class="header-sub">Enter your name below to discover your table assignment</p>
   </header>
 
-  <div class="divider">
+  <!-- Decorative divider, hidden from screen readers -->
+  <div class="divider" aria-hidden="true">
     <div class="divider-line"></div>
     <div class="divider-diamond"></div>
     <div class="divider-line"></div>
   </div>
 
   <!-- SEARCH CARD -->
-  <div class="card">
-    <p class="card-label">Your Name</p>
-    <div class="field-group">
-      <div class="field-wrap">
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" placeholder="e.g. Emily" autocomplete="given-name" autocorrect="off" spellcheck="false" />
-      </div>
-      <div class="field-wrap">
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" placeholder="e.g. Johnson" autocomplete="family-name" autocorrect="off" spellcheck="false" />
-      </div>
-    </div>
-    <button class="search-btn" onclick="handleSearch()">Find My Table</button>
+  <main id="main-content">
+    <div class="card" role="search" aria-label="Table seat finder">
+      <p class="card-label" id="form-heading" aria-hidden="true">Your Name</p>
 
-    <!-- Results appear here -->
-    <div id="resultsArea"></div>
-  </div>
+      <form id="search-form" aria-labelledby="form-heading" novalidate onsubmit="handleSearchSubmit(event)">
+        <div class="field-group">
+          <div class="field-wrap">
+            <label for="firstName">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              placeholder="e.g. Emily"
+              autocomplete="given-name"
+              autocorrect="off"
+              autocapitalize="words"
+              spellcheck="false"
+              aria-required="false"
+              aria-describedby="name-hint"
+            />
+          </div>
+          <div class="field-wrap">
+            <label for="lastName">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              placeholder="e.g. Johnson"
+              autocomplete="family-name"
+              autocorrect="off"
+              autocapitalize="words"
+              spellcheck="false"
+              aria-required="false"
+            />
+          </div>
+        </div>
+        <p id="name-hint" class="sr-only">Enter at least your first or last name to search the guest list.</p>
 
-  <!-- MAP SECTION -->
-  <div class="map-section">
-    <div class="section-title">
-      <span>Seating Map</span>
-      <div class="section-title-line"></div>
+        <button type="submit" class="search-btn" aria-label="Search for my table assignment">
+          Find My Table
+        </button>
+      </form>
+
+      <!--
+        Live region: screen readers will announce changes here automatically.
+        aria-live="polite" waits for the user to finish what they're doing before reading.
+        aria-atomic="true" reads the entire region as one unit.
+      -->
+      <div
+        id="resultsArea"
+        role="region"
+        aria-label="Search results"
+        aria-live="polite"
+        aria-atomic="true"
+      ></div>
     </div>
-    <div class="map-frame">
-      <img src="seating-chart.jpg" alt="Seating Chart" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
-      <div class="map-placeholder" style="display:none">
-        <div class="map-placeholder-icon">🗺️</div>
-        <p>Seating Chart Map</p>
-        <small>Replace seating-chart.jpg with your image</small>
+
+    <!-- MAP SECTION -->
+    <section class="map-section" aria-labelledby="map-heading">
+      <div class="section-title">
+        <h2 class="sr-only" id="map-heading">Seating Chart Map</h2>
+        <span aria-hidden="true">Seating Map</span>
+        <div class="section-title-line" aria-hidden="true"></div>
       </div>
-    </div>
-  </div>
+      <div class="map-frame">
+        <img
+          src="seating-chart.jpg"
+          alt="Seating chart showing the layout of all tables in the reception venue"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+        />
+        <div class="map-placeholder" style="display:none" role="img" aria-label="Seating chart image not yet available">
+          <div class="map-placeholder-icon" aria-hidden="true">🗺️</div>
+          <p>Seating Chart Map</p>
+          <small>Replace seating-chart.jpg with your image</small>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-ornament">✦</div>
+  <footer class="footer" role="contentinfo">
+    <div class="footer-ornament" aria-hidden="true">✦</div>
     <p>Wishing you a wonderful evening</p>
   </footer>
 
 </div>
+
+<!-- Visually hidden utility class for screen-reader-only text -->
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>
 
 <!-- Papa Parse for CSV -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -568,7 +682,6 @@ function levenshtein(a, b) {
   const m = a.length, n = b.length;
   const dp = Array.from({ length: m + 1 }, (_, i) => [i]);
   for (let j = 0; j <= n; j++) dp[0][j] = j;
-
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
       if (a[i - 1] === b[j - 1]) dp[i][j] = dp[i - 1][j - 1];
@@ -584,17 +697,23 @@ function scoreName(guest, first, last) {
   return levenshtein(gFirst, first) + levenshtein(gLast, last);
 }
 
+// Form submit handler (supports both button click and Enter key)
+function handleSearchSubmit(e) {
+  if (e) e.preventDefault();
+  handleSearch();
+}
+
 function handleSearch() {
   const first = normalize(document.getElementById('firstName').value);
   const last  = normalize(document.getElementById('lastName').value);
 
   if (!first && !last) {
-    showMessage('Please enter your name.');
+    showMessage('Please enter your first or last name to search.');
     return;
   }
 
   if (guestData.length === 0) {
-    showMessage('Guest list is loading — please try again.');
+    showMessage('Guest list is loading — please try again in a moment.');
     return;
   }
 
@@ -614,9 +733,9 @@ function handleSearch() {
   if (matches.length === 0 || bestScore > 6) {
     area.innerHTML = `
       <div class="results-section">
-        <div class="not-found">
+        <div class="not-found" role="alert">
           <p>No match found</p>
-          <small>Please check spelling or ask staff.</small>
+          <small>Please check the spelling of your name or ask a member of staff for assistance.</small>
         </div>
       </div>`;
     return;
@@ -627,22 +746,30 @@ function handleSearch() {
   } else {
     window.currentMatches = matches;
 
-    const list = matches.map((m, idx) => `
-      <div class="match-item" onclick="selectGuest(${idx})">
-        <span class="match-name">
-          ${m.guest['First Name']} ${m.guest['Last Name']}
-          ${m.guest['Duplicate'] ? `${m.guest['Duplicate']}` : ''}
-        </span>
-        <span class="match-tap">Select →</span>
-      </div>
-    `).join('');
+    // Build a list of buttons — semantically correct for screen readers
+    const listItems = matches.map((m, idx) => {
+      const name = `${m.guest['First Name']} ${m.guest['Last Name']}${m.guest['Duplicate'] ? ' ' + m.guest['Duplicate'] : ''}`.trim();
+      return `
+        <li>
+          <button class="match-item" onclick="selectGuest(${idx})" aria-label="Select ${name}">
+            <span class="match-name">${name}</span>
+            <span class="match-tap" aria-hidden="true">Select →</span>
+          </button>
+        </li>`;
+    }).join('');
 
     area.innerHTML = `
       <div class="results-section">
-        <div class="result-heading">Did you mean:</div>
-        <div class="match-list">${list}</div>
+        <p class="result-heading" id="matches-label">Did you mean one of these guests?</p>
+        <ul class="match-list" aria-labelledby="matches-label" style="list-style:none;padding:0;">
+          ${listItems}
+        </ul>
       </div>
     `;
+
+    // Move focus to the first match so screen reader users know results appeared
+    const firstBtn = area.querySelector('.match-item');
+    if (firstBtn) firstBtn.focus();
   }
 }
 
@@ -653,21 +780,37 @@ function selectGuest(idx) {
 function showSeat(guest) {
   const area = document.getElementById('resultsArea');
   const table = guest['Table Number'] || guest['Table'] || '—';
-  const fullName = `${guest['First Name']} ${guest['Last Name']} 
-                    ${guest['Duplicate'] ? `${guest['Duplicate']}` : ''}`;
+  const fullName = `${guest['First Name']} ${guest['Last Name']}${guest['Duplicate'] ? ' ' + guest['Duplicate'] : ''}`.trim();
 
   area.innerHTML = `
     <div class="results-section">
       <div class="seat-result">
-        <div class="guest-name">${fullName}</div>
-        <div class="seat-label">Your table assignment</div>
-        <div class="table-badge">${table}</div>
-        <div class="table-word">Table</div>
+        <p class="guest-name">${fullName}</p>
+        <p class="seat-label">Your table assignment</p>
+        <!--
+          Screen readers will read the aria-label which gives full context.
+          The visible badge shows just the number.
+        -->
+        <div
+          class="table-badge"
+          role="img"
+          aria-label="Table ${table}"
+        >${table}</div>
+        <p class="table-word" aria-hidden="true">Table</p>
         <br>
-        <button class="search-again-btn" onclick="resetSearch()">Search Again</button>
+        <button class="search-again-btn" onclick="resetSearch()" aria-label="Clear results and search for another guest">
+          Search Again
+        </button>
       </div>
     </div>
   `;
+
+  // Focus the result heading so screen reader announces the outcome immediately
+  const result = area.querySelector('.seat-result');
+  if (result) {
+    result.setAttribute('tabindex', '-1');
+    result.focus();
+  }
 
   area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
@@ -676,7 +819,9 @@ function showMessage(msg) {
   const area = document.getElementById('resultsArea');
   area.innerHTML = `
     <div class="results-section">
-      <div class="not-found"><p>${msg}</p></div>
+      <div class="not-found" role="alert">
+        <p>${msg}</p>
+      </div>
     </div>
   `;
 }
@@ -685,14 +830,10 @@ function resetSearch() {
   document.getElementById('resultsArea').innerHTML = '';
   document.getElementById('firstName').value = '';
   document.getElementById('lastName').value = '';
-  document.getElementById('firstName').focus();
+  const firstField = document.getElementById('firstName');
+  firstField.focus();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
-// Enter key support
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') handleSearch();
-});
 </script>
 </body>
 </html>
