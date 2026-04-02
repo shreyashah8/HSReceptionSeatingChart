@@ -526,6 +526,20 @@
       letter-spacing: 0.12em;
       font-weight: 300;
     }
+
+    .field-error {
+      display: block;
+      font-size: 11px;
+      color: #b04a2a;
+      letter-spacing: 0.08em;
+      margin-top: 5px;
+      padding-left: 2px;
+      min-height: 16px;
+    }
+    .field-wrap input[aria-invalid="true"] {
+      border-color: #b04a2a;
+      box-shadow: 0 0 0 3px rgba(176,74,42,0.12);
+    }
   </style>
 </head>
 <body>
@@ -570,9 +584,10 @@
               autocorrect="off"
               autocapitalize="words"
               spellcheck="false"
-              aria-required="false"
-              aria-describedby="name-hint"
+              aria-required="true"
+              aria-describedby="firstName-error name-hint"
             />
+            <span id="firstName-error" class="field-error" role="alert" aria-live="polite"></span>
           </div>
           <div class="field-wrap">
             <label for="lastName">Last Name</label>
@@ -585,8 +600,10 @@
               autocorrect="off"
               autocapitalize="words"
               spellcheck="false"
-              aria-required="false"
+              aria-required="true"
+              aria-describedby="lastName-error"
             />
+            <span id="lastName-error" class="field-error" role="alert" aria-live="polite"></span>
           </div>
         </div>
         <p id="name-hint" class="sr-only">Enter at least your first or last name to search the guest list.</p>
@@ -703,22 +720,40 @@ function handleSearchSubmit(e) {
   handleSearch();
 }
 
+function setFieldError(fieldId, message) {
+  const input = document.getElementById(fieldId);
+  const errorEl = document.getElementById(fieldId + '-error');
+  if (input) input.setAttribute('aria-invalid', 'true');
+  if (errorEl) errorEl.textContent = message;
+}
+
+function clearFieldError(fieldId) {
+  const input = document.getElementById(fieldId);
+  const errorEl = document.getElementById(fieldId + '-error');
+  if (input) input.removeAttribute('aria-invalid');
+  if (errorEl) errorEl.textContent = '';
+}
+
 function handleSearch() {
   const first = normalize(document.getElementById('firstName').value);
   const last  = normalize(document.getElementById('lastName').value);
 
-  if (!first && !last) {
-    showMessage('Please enter your first and last name to search.');
-    return;
-  }
+  // Clear previous errors
+  clearFieldError('firstName');
+  clearFieldError('lastName');
+
+  let hasError = false;
   if (!first) {
-    showMessage('Please enter your first name.');
-    document.getElementById('firstName').focus();
-    return;
+    setFieldError('firstName', 'Please enter your first name.');
+    hasError = true;
   }
   if (!last) {
-    showMessage('Please enter your last name.');
-    document.getElementById('lastName').focus();
+    setFieldError('lastName', 'Please enter your last name.');
+    hasError = true;
+  }
+  if (hasError) {
+    if (!first) document.getElementById('firstName').focus();
+    else document.getElementById('lastName').focus();
     return;
   }
 
