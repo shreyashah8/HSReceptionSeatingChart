@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Wedding Seating</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #FAF6EF;
+      --cream-dark: #F0E8D8;
+      --cream-mid: #EDE0CC;
+      --gold: #C9A84C;
+      --gold-light: #E2C97E;
+      --gold-dark: #9C7A2E;
+      --gold-muted: #D4B870;
+      --text-dark: #3A2E1E;
+      --text-mid: #6B5740;
+      --text-light: #9C8060;
+      --shadow: rgba(100, 70, 20, 0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      min-height: 100%;
+      background-color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      color: var(--text-dark);
+      overscroll-behavior: none;
+    }
+
+    /* Decorative background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 30% at 80% 100%, rgba(201,168,76,0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 0 28px;
+      gap: 16px;
+    }
+
+    .logo-wrap {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1.5px solid var(--gold-light);
+      box-shadow: 0 4px 24px rgba(201,168,76,0.18), 0 0 0 6px rgba(201,168,76,0.07);
+      background: var(--cream-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .logo-placeholder-icon {
+      font-size: 32px;
+      opacity: 0.35;
+      color: var(--gold);
+    }
+
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+    }
+
+    .ornament::before, .ornament::after {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 0.5px;
+      background: linear-gradient(90deg, transparent, var(--gold-muted));
+    }
+
+    .ornament::after {
+      background: linear-gradient(90deg, var(--gold-muted), transparent);
+    }
+
+    .header-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      font-weight: 300;
+      color: var(--text-dark);
+      text-align: center;
+      line-height: 1.15;
+      letter-spacing: 0.02em;
+    }
+
+    .header-title em {
+      font-style: italic;
+      color: var(--gold-dark);
+    }
+
+    .header-sub {
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      color: var(--text-light);
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 4px 0 28px;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 0.5px;
+      background: linear-gradient(90deg, transparent, var(--cream-mid), transparent);
+    }
+
+    .divider-diamond {
+      width: 5px;
+      height: 5px;
+      background: var(--gold-muted);
+      transform: rotate(45deg);
+      opacity: 0.7;
+    }
+
+    /* ── SEARCH CARD ── */
+    .card {
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(201,168,76,0.22);
+      border-radius: 16px;
+      padding: 28px 22px;
+      box-shadow: 0 8px 40px var(--shadow), 0 1px 0 rgba(255,255,255,0.9) inset;
+    }
+
+    .card-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .field-wrap {
+      position: relative;
+    }
+
+    .field-wrap label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      font-weight: 400;
+      margin-bottom: 6px;
+      padding-left: 2px;
+    }
+
+    .field-wrap input {
+      width: 100%;
+      background: var(--cream);
+      border: 1px solid var(--cream-mid);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-family: 'Jost', sans-serif;
+      font-size: 16px; /* 16px prevents iOS zoom */
+      font-weight: 300;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+
+    .field-wrap input::placeholder { color: var(--text-light); font-weight: 300; }
+
+    .field-wrap input:focus {
+      border-color: var(--gold-muted);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+    }
+
+    .search-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
+      border: none;
+      border-radius: 10px;
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #fff;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      box-shadow: 0 4px 18px rgba(156,122,46,0.3);
+      -webkit-appearance: none;
+    }
+
+    .search-btn:active { transform: scale(0.98); opacity: 0.9; }
+
+    /* ── RESULTS ── */
+    .results-section {
+      margin-top: 20px;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-heading {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    /* Multiple matches */
+    .match-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .match-item {
+      background: var(--cream);
+      border: 1px solid var(--cream-mid);
+      border-radius: 10px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .match-item:active { background: var(--cream-dark); }
+
+    .match-item .match-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text-dark);
+    }
+
+    .match-item .match-tap {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* Seat result */
+    .seat-result {
+      text-align: center;
+      padding: 28px 20px;
+      background: linear-gradient(145deg, rgba(201,168,76,0.07), rgba(201,168,76,0.02));
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 14px;
+    }
+
+    .seat-result .guest-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .seat-result .seat-label {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 14px;
+    }
+
+    .table-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 300;
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
+      border-radius: 50%;
+      box-shadow: 0 6px 24px rgba(156,122,46,0.35);
+      margin: 0 auto 16px;
+    }
+
+    .table-word {
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-top: 4px;
+    }
+
+    .search-again-btn {
+      margin-top: 18px;
+      background: none;
+      border: 1px solid var(--cream-mid);
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .search-again-btn:active { border-color: var(--gold-muted); color: var(--gold-dark); }
+
+    .not-found {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .not-found p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      color: var(--text-mid);
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+
+    .not-found small {
+      font-size: 12px;
+      color: var(--text-light);
+      font-weight: 300;
+    }
+
+    /* ── MAP SECTION ── */
+    .map-section {
+      margin-top: 36px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .section-title span {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      white-space: nowrap;
+    }
+
+    .section-title-line {
+      flex: 1;
+      height: 0.5px;
+      background: var(--cream-mid);
+    }
+
+    .map-frame {
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px var(--shadow);
+    }
+
+    .map-frame img {
+      width: 100%;
+      display: block;
+    }
+
+    .map-placeholder {
+      width: 100%;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(145deg, var(--cream-dark), var(--cream-mid));
+      padding: 40px 20px;
+    }
+
+    .map-placeholder-icon {
+      font-size: 36px;
+      opacity: 0.3;
+    }
+
+    .map-placeholder p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--text-light);
+      font-style: italic;
+      text-align: center;
+    }
+
+    .map-placeholder small {
+      font-size: 11px;
+      color: var(--text-light);
+      opacity: 0.6;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .footer-ornament {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      color: var(--gold-muted);
+      font-size: 14px;
+      opacity: 0.5;
+      margin-bottom: 12px;
+    }
+
+    .footer-ornament::before, .footer-ornament::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 0.5px;
+      background: var(--gold-muted);
+    }
+
+    .footer p {
+      font-size: 11px;
+      color: var(--text-light);
+      letter-spacing: 0.12em;
+      font-weight: 300;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo-wrap">
+      <img src="logo.png" alt="Wedding Logo" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=\'logo-placeholder-icon\'>🌸</span>'" />
+    </div>
+    <div class="ornament">Reception</div>
+    <h1 class="header-title">Find Your<br><em>Seat</em></h1>
+    <p class="header-sub">Enter your name below to discover<br>your table assignment</p>
+  </header>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- SEARCH CARD -->
+  <div class="card">
+    <p class="card-label">Your Name</p>
+    <div class="field-group">
+      <div class="field-wrap">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" placeholder="e.g. Emily" autocomplete="given-name" autocorrect="off" spellcheck="false" />
+      </div>
+      <div class="field-wrap">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" placeholder="e.g. Johnson" autocomplete="family-name" autocorrect="off" spellcheck="false" />
+      </div>
+    </div>
+    <button class="search-btn" onclick="handleSearch()">Find My Table</button>
+
+    <!-- Results appear here -->
+    <div id="resultsArea"></div>
+  </div>
+
+  <!-- MAP SECTION -->
+  <div class="map-section">
+    <div class="section-title">
+      <span>Seating Map</span>
+      <div class="section-title-line"></div>
+    </div>
+    <div class="map-frame">
+      <img src="seating-chart.jpg" alt="Seating Chart" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+      <div class="map-placeholder" style="display:none">
+        <div class="map-placeholder-icon">🗺️</div>
+        <p>Seating Chart Map</p>
+        <small>Replace seating-chart.jpg with your image</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-ornament">✦</div>
+    <p>Wishing you a wonderful evening</p>
+  </footer>
+
+</div>
+
+<!-- Papa Parse for CSV -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script>
+let guestData = [];
+
+// Load CSV
+Papa.parse('table.csv', {
+  download: true,
+  header: true,
+  skipEmptyLines: true,
+  complete: function(results) {
+    guestData = results.data;
+  },
+  error: function() {
+    console.warn('CSV not found. Make sure table.csv is in the same folder.');
+  }
+});
+
+function normalize(str) {
+  return (str || '').toLowerCase().trim();
+}
+
+// Levenshtein distance
+function levenshtein(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({ length: m + 1 }, (_, i) => [i]);
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (a[i - 1] === b[j - 1]) dp[i][j] = dp[i - 1][j - 1];
+      else dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+    }
+  }
+  return dp[m][n];
+}
+
+function scoreName(guest, first, last) {
+  const gFirst = normalize(guest['First Name']);
+  const gLast  = normalize(guest['Last Name']);
+  return levenshtein(gFirst, first) + levenshtein(gLast, last);
+}
+
+function handleSearch() {
+  const first = normalize(document.getElementById('firstName').value);
+  const last  = normalize(document.getElementById('lastName').value);
+
+  if (!first && !last) {
+    showMessage('Please enter your name.');
+    return;
+  }
+
+  if (guestData.length === 0) {
+    showMessage('Guest list is loading — please try again.');
+    return;
+  }
+
+  const scored = guestData.map(g => ({
+    guest: g,
+    score: scoreName(g, first, last)
+  }));
+
+  scored.sort((a, b) => a.score - b.score);
+
+  const bestScore = scored[0].score;
+  const matches = scored.filter(s => s.score <= bestScore + 1).slice(0, 6);
+
+  const area = document.getElementById('resultsArea');
+  area.innerHTML = '';
+
+  if (matches.length === 0 || bestScore > 6) {
+    area.innerHTML = `
+      <div class="results-section">
+        <div class="not-found">
+          <p>No match found</p>
+          <small>Please check spelling or ask staff.</small>
+        </div>
+      </div>`;
+    return;
+  }
+
+  if (matches.length === 1) {
+    showSeat(matches[0].guest);
+  } else {
+    window.currentMatches = matches;
+
+    const list = matches.map((m, idx) => `
+      <div class="match-item" onclick="selectGuest(${idx})">
+        <span class="match-name">
+          ${m.guest['First Name']} ${m.guest['Last Name']}
+          ${m.guest['Duplicate'] ? `${m.guest['Duplicate']}` : ''}
+        </span>
+        <span class="match-tap">Select →</span>
+      </div>
+    `).join('');
+
+    area.innerHTML = `
+      <div class="results-section">
+        <div class="result-heading">Did you mean:</div>
+        <div class="match-list">${list}</div>
+      </div>
+    `;
+  }
+}
+
+function selectGuest(idx) {
+  showSeat(window.currentMatches[idx].guest);
+}
+
+function showSeat(guest) {
+  const area = document.getElementById('resultsArea');
+  const table = guest['Table Number'] || guest['Table'] || '—';
+  const fullName = `${guest['First Name']} ${guest['Last Name']} 
+                    ${guest['Duplicate'] ? `${guest['Duplicate']}` : ''}`;
+
+  area.innerHTML = `
+    <div class="results-section">
+      <div class="seat-result">
+        <div class="guest-name">${fullName}</div>
+        <div class="seat-label">Your table assignment</div>
+        <div class="table-badge">${table}</div>
+        <div class="table-word">Table</div>
+        <br>
+        <button class="search-again-btn" onclick="resetSearch()">Search Again</button>
+      </div>
+    </div>
+  `;
+
+  area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function showMessage(msg) {
+  const area = document.getElementById('resultsArea');
+  area.innerHTML = `
+    <div class="results-section">
+      <div class="not-found"><p>${msg}</p></div>
+    </div>
+  `;
+}
+
+function resetSearch() {
+  document.getElementById('resultsArea').innerHTML = '';
+  document.getElementById('firstName').value = '';
+  document.getElementById('lastName').value = '';
+  document.getElementById('firstName').focus();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Enter key support
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') handleSearch();
+});
+</script>
+</body>
+</html>
