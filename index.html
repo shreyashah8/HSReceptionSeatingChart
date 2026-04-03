@@ -6,11 +6,6 @@
   <title>Reception Seating – Find Your Table</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    @keyframes hlPulse {
-      0%, 100% { opacity: 1; stroke-width: 3; }
-      40%       { opacity: 0; stroke-width: 5; }
-      60%       { opacity: 0; stroke-width: 5; }
-    }
     :root {
       --cream: #FAF6EF;
       --cream-dark: #F0E8D8;
@@ -470,8 +465,9 @@
 
     /* Pulsing animation for the highlighted table ring */
     @keyframes hlPulse {
-      0%, 100% { stroke-width: 3; opacity: 1; }
-      50%       { stroke-width: 6; opacity: 0.55; }
+      0%, 100% { opacity: 1; stroke-width: 3; }
+      40%       { opacity: 0; stroke-width: 5; }
+      60%       { opacity: 0; stroke-width: 5; }
     }
 
     .hl-ring-active {
