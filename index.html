@@ -344,15 +344,15 @@
       pointer-events: none;
     }
 
-    /* Single blink keyframe — no duplicates anywhere in this file */
+    /* Replace your existing @keyframes hlBlink and the two lines below it with this: */
+
     @keyframes hlBlink {
-      0%, 44%  { opacity: 1; }
-      50%, 94% { opacity: 0; }
-      100%     { opacity: 1; }
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
     }
 
-    #hlRing.blinking { animation: hlBlink 1.1s step-end infinite; }
-    #hlFill.blinking { animation: hlBlink 1.1s step-end infinite; }
+    #hlRing.blinking { animation: hlBlink 1.4s ease-in-out infinite; }
+    #hlFill.blinking { animation: hlBlink 1.4s ease-in-out infinite; }
 
     .footer { margin-top: 48px; text-align: center; }
 
