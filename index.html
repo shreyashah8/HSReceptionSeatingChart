@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Reception Seating – Find Your Table</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -237,6 +237,7 @@
     .match-list { display: flex; flex-direction: column; gap: 10px; }
 
     .match-item {
+      touch-action: manipulation;
       background: var(--cream);
       border: 1px solid var(--cream-mid);
       border-radius: 10px;
@@ -328,29 +329,24 @@
 
     .map-frame {
       position: relative;
-      background: rgba(255,255,255,0.6);
-      border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 4px 24px var(--shadow);
+      width: 100%;
+      aspect-ratio: 1240 / 870; /* matches SVG viewBox */
     }
 
-    .map-frame img { width: 100%; display: block; }
-
+    .map-frame img,
     .map-overlay {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
+      inset: 0;
+      width: 100%;
+      height: 100%;
     }
 
     /* Replace your existing @keyframes hlBlink and the two lines below it with this: */
 
     @keyframes hlBlink {
-      0%   { opacity: 0; }
-      20%  { opacity: 1; }
-      70%  { opacity: 1; }
-      100% { opacity: 0; }
+      0%   { opacity: 0; transform: scale(0.9); }
+      50%  { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.9); }
     }
 
     #hlRing.blinking,
@@ -466,7 +462,7 @@
           alt="Seating chart showing the layout of all tables in the reception venue"
           onerror="this.style.display='none'" />
         <svg id="mapHighlightSvg" class="map-overlay"
-          viewBox="0 0 1240 870" preserveAspectRatio="none" aria-hidden="true">
+          viewBox="0 0 1240 870" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <circle id="hlFill" r="50" fill="rgba(201,168,76,0.3)" opacity="0" />
           <circle id="hlRing" r="50" fill="none" stroke="#C9A84C" stroke-width="3.5" opacity="0" />
         </svg>
