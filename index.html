@@ -528,13 +528,20 @@ function updateSvgViewBox() {
   const img = document.getElementById('seatingMapImg');
   const svg = document.getElementById('mapHighlightSvg');
   if (!img || !svg) return;
-  // Use natural dimensions so coordinate space matches image content
-  const w = img.naturalWidth || img.width;
-  const h = img.naturalHeight || img.height;
-  if (w && h) svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+  if (img.naturalWidth && img.naturalHeight) {
+    svg.setAttribute('viewBox', `0 0 ${img.naturalWidth} ${img.naturalHeight}`);
+    return true;
+  }
+  return false;
 }
 
-// Call once image loads, and again on resize
+// Try immediately, then poll until the image reports its natural size
+if (!updateSvgViewBox()) {
+  const poll = setInterval(() => {
+    if (updateSvgViewBox()) clearInterval(poll);
+  }, 100);
+}
+
 document.getElementById('seatingMapImg').addEventListener('load', updateSvgViewBox);
 window.addEventListener('resize', updateSvgViewBox);
 updateSvgViewBox(); // in case already loaded
