@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Reception Seating – Find Your Table</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -237,7 +237,6 @@
     .match-list { display: flex; flex-direction: column; gap: 10px; }
 
     .match-item {
-      touch-action: manipulation;
       background: var(--cream);
       border: 1px solid var(--cream-mid);
       border-radius: 10px;
@@ -329,30 +328,31 @@
 
     .map-frame {
       position: relative;
-      width: 100%;
-      aspect-ratio: 1240 / 870; /* matches SVG viewBox */
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px var(--shadow);
     }
 
-    .map-frame img,
+    .map-frame img { width: 100%; display: block; }
+
     .map-overlay {
       position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
     }
 
     /* Replace your existing @keyframes hlBlink and the two lines below it with this: */
 
     @keyframes hlBlink {
-      0%   { opacity: 0; transform: scale(0.9); }
-      50%  { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; transform: scale(0.9); }
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
     }
 
-    #hlRing.blinking,
-    #hlFill.blinking {
-      animation: hlBlink 2.2s ease-in-out infinite;
-    }
+    #hlRing.blinking { animation: hlBlink 1.4s ease-in-out infinite; }
+    #hlFill.blinking { animation: hlBlink 1.4s ease-in-out infinite; }
 
     .footer { margin-top: 48px; text-align: center; }
 
@@ -520,27 +520,41 @@ const TABLE_COORDS = {
   36: {x:1063, y: 700}
 };
 
-function updateSvgViewBox() {
-  const img = document.getElementById('seatingMapImg');
-  const svg = document.getElementById('mapHighlightSvg');
-  if (!img || !svg) return;
-  if (img.naturalWidth && img.naturalHeight) {
-    svg.setAttribute('viewBox', `0 0 ${img.naturalWidth} ${img.naturalHeight}`);
-    return true;
+function highlightTable(tableNum) {
+  const ring = document.getElementById('hlRing');
+  const fill = document.getElementById('hlFill');
+  if (!ring || !fill) return;
+
+  const coords = TABLE_COORDS[parseInt(tableNum)];
+  if (!coords) {
+    ring.style.opacity = '0';
+    fill.style.opacity = '0';
+    ring.classList.remove('blinking');
+    fill.classList.remove('blinking');
+    return;
   }
-  return false;
-}
 
-// Try immediately, then poll until the image reports its natural size
-if (!updateSvgViewBox()) {
-  const poll = setInterval(() => {
-    if (updateSvgViewBox()) clearInterval(poll);
-  }, 100);
-}
+  ring.setAttribute('cx', coords.x);
+  ring.setAttribute('cy', coords.y);
+  fill.setAttribute('cx', coords.x);
+  fill.setAttribute('cy', coords.y);
 
-document.getElementById('seatingMapImg').addEventListener('load', updateSvgViewBox);
-window.addEventListener('resize', updateSvgViewBox);
-updateSvgViewBox(); // in case already loaded
+  // Remove blinking class first so animation restarts cleanly
+  ring.classList.remove('blinking');
+  fill.classList.remove('blinking');
+
+  // Set visible via style (not setAttribute) so CSS animation can control opacity
+  ring.style.opacity = '1';
+  fill.style.opacity = '1';
+
+  // Force reflow to restart the animation from the beginning
+  void ring.offsetWidth;
+
+  ring.classList.add('blinking');
+  fill.classList.add('blinking');
+
+  document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
 
 Papa.parse('table.csv', {
   download: true,
