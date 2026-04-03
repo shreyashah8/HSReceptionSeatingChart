@@ -466,7 +466,7 @@
           alt="Seating chart showing the layout of all tables in the reception venue"
           onerror="this.style.display='none'" />
         <svg id="mapHighlightSvg" class="map-overlay"
-          viewBox="0 0 1240 870" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          viewBox="0 0 1240 870" preserveAspectRatio="none" aria-hidden="true">
           <circle id="hlFill" r="50" fill="rgba(201,168,76,0.3)" opacity="0" />
           <circle id="hlRing" r="50" fill="none" stroke="#C9A84C" stroke-width="3.5" opacity="0" />
         </svg>
@@ -524,41 +524,20 @@ const TABLE_COORDS = {
   36: {x:1063, y: 700}
 };
 
-function highlightTable(tableNum) {
-  const ring = document.getElementById('hlRing');
-  const fill = document.getElementById('hlFill');
-  if (!ring || !fill) return;
-
-  const coords = TABLE_COORDS[parseInt(tableNum)];
-  if (!coords) {
-    ring.style.opacity = '0';
-    fill.style.opacity = '0';
-    ring.classList.remove('blinking');
-    fill.classList.remove('blinking');
-    return;
-  }
-
-  ring.setAttribute('cx', coords.x);
-  ring.setAttribute('cy', coords.y);
-  fill.setAttribute('cx', coords.x);
-  fill.setAttribute('cy', coords.y);
-
-  // Remove blinking class first so animation restarts cleanly
-  ring.classList.remove('blinking');
-  fill.classList.remove('blinking');
-
-  // Set visible via style (not setAttribute) so CSS animation can control opacity
-  ring.style.opacity = '1';
-  fill.style.opacity = '1';
-
-  // Force reflow to restart the animation from the beginning
-  void ring.offsetWidth;
-
-  ring.classList.add('blinking');
-  fill.classList.add('blinking');
-
-  document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+function updateSvgViewBox() {
+  const img = document.getElementById('seatingMapImg');
+  const svg = document.getElementById('mapHighlightSvg');
+  if (!img || !svg) return;
+  // Use natural dimensions so coordinate space matches image content
+  const w = img.naturalWidth || img.width;
+  const h = img.naturalHeight || img.height;
+  if (w && h) svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
 }
+
+// Call once image loads, and again on resize
+document.getElementById('seatingMapImg').addEventListener('load', updateSvgViewBox);
+window.addEventListener('resize', updateSvgViewBox);
+updateSvgViewBox(); // in case already loaded
 
 Papa.parse('table.csv', {
   download: true,
