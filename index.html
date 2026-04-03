@@ -6,6 +6,11 @@
   <title>Reception Seating – Find Your Table</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
+    @keyframes hlPulse {
+      0%, 100% { opacity: 1; stroke-width: 3; }
+      40%       { opacity: 0; stroke-width: 5; }
+      60%       { opacity: 0; stroke-width: 5; }
+    }
     :root {
       --cream: #FAF6EF;
       --cream-dark: #F0E8D8;
@@ -640,8 +645,8 @@
           preserveAspectRatio="xMidYMid meet"
           aria-hidden="true"
         >
-          <circle id="hlFill" r="52" fill="rgba(201,168,76,0.28)" opacity="0" style="transition: opacity 0.4s;" />
-          <circle id="hlRing" r="52" fill="none" stroke="#C9A84C" stroke-width="3" opacity="0" style="transition: opacity 0.4s;" />
+          <circle id="hlFill" r="50" fill="rgba(201,168,76,0.28)" opacity="0" />
+          <circle id="hlRing" r="50" fill="none" stroke="#C9A84C" stroke-width="3.5" opacity="0" />
         </svg>
       </div>
     </section>
@@ -724,10 +729,12 @@ function highlightTable(tableNum) {
   fill.setAttribute('opacity', '1');
   ring.setAttribute('opacity', '1');
 
-  // Restart the pulse animation cleanly
+  // Restart the pulse animation cleanly on both circles
   ring.classList.remove('hl-ring-active');
-  void ring.offsetWidth; // force reflow
+  fill.classList.remove('hl-ring-active');
+  void ring.offsetWidth;
   ring.classList.add('hl-ring-active');
+  fill.classList.add('hl-ring-active');
 
   // Scroll the map into view so guests can see the highlight
   document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
