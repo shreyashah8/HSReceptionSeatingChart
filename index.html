@@ -347,12 +347,32 @@
     /* Replace your existing @keyframes hlBlink and the two lines below it with this: */
 
     @keyframes hlBlink {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0; }
+      0% {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+
+      25% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      60% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1.15);
+      }
     }
 
-    #hlRing.blinking { animation: hlBlink 1.4s ease-in-out infinite; }
-    #hlFill.blinking { animation: hlBlink 1.4s ease-in-out infinite; }
+    #hlRing.blinking,
+    #hlFill.blinking {
+      animation: hlBlink 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      transform-origin: center;
+    }
 
     .footer { margin-top: 48px; text-align: center; }
 
