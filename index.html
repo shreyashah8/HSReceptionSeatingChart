@@ -73,7 +73,6 @@
       padding: 0 20px 60px;
     }
 
-    /* ── HEADER ── */
     .header {
       display: flex;
       flex-direction: column;
@@ -95,17 +94,9 @@
       justify-content: center;
     }
 
-    .logo-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .logo-wrap img { width: 100%; height: 100%; object-fit: cover; }
 
-    .logo-placeholder-icon {
-      font-size: 32px;
-      opacity: 0.35;
-      color: var(--gold);
-    }
+    .logo-placeholder-icon { font-size: 32px; opacity: 0.35; color: var(--gold); }
 
     .ornament {
       display: flex;
@@ -126,10 +117,7 @@
       height: 0.5px;
       background: linear-gradient(90deg, transparent, var(--gold-muted));
     }
-
-    .ornament::after {
-      background: linear-gradient(90deg, var(--gold-muted), transparent);
-    }
+    .ornament::after { background: linear-gradient(90deg, var(--gold-muted), transparent); }
 
     .header-title {
       font-family: 'Cormorant Garamond', serif;
@@ -153,29 +141,10 @@
       line-height: 1.8;
     }
 
-    /* ── DIVIDER ── */
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 4px 0 28px;
-    }
+    .divider { display: flex; align-items: center; gap: 12px; margin: 4px 0 28px; }
+    .divider-line { flex: 1; height: 0.5px; background: linear-gradient(90deg, transparent, var(--cream-mid), transparent); }
+    .divider-diamond { width: 5px; height: 5px; background: var(--gold-muted); transform: rotate(45deg); opacity: 0.7; }
 
-    .divider-line {
-      flex: 1;
-      height: 0.5px;
-      background: linear-gradient(90deg, transparent, var(--cream-mid), transparent);
-    }
-
-    .divider-diamond {
-      width: 5px;
-      height: 5px;
-      background: var(--gold-muted);
-      transform: rotate(45deg);
-      opacity: 0.7;
-    }
-
-    /* ── SEARCH CARD ── */
     .card {
       background: rgba(255,255,255,0.72);
       backdrop-filter: blur(12px);
@@ -196,13 +165,7 @@
       letter-spacing: 0.03em;
     }
 
-    .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
+    .field-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
     .field-wrap { position: relative; }
 
     .field-wrap label {
@@ -232,11 +195,7 @@
     }
 
     .field-wrap input::placeholder { color: var(--text-light); font-weight: 300; }
-
-    .field-wrap input:focus {
-      border-color: var(--gold-muted);
-      box-shadow: var(--focus-ring);
-    }
+    .field-wrap input:focus { border-color: var(--gold-muted); box-shadow: var(--focus-ring); }
 
     .search-btn {
       width: 100%;
@@ -257,16 +216,9 @@
     }
 
     .search-btn:active { transform: scale(0.98); opacity: 0.9; }
-    .search-btn:focus-visible {
-      outline: 2px solid var(--gold-dark);
-      outline-offset: 3px;
-    }
+    .search-btn:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: 3px; }
 
-    /* ── RESULTS ── */
-    .results-section {
-      margin-top: 20px;
-      animation: fadeUp 0.4s ease both;
-    }
+    .results-section { margin-top: 20px; animation: fadeUp 0.4s ease both; }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(12px); }
@@ -282,11 +234,7 @@
       margin-bottom: 14px;
     }
 
-    .match-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .match-list { display: flex; flex-direction: column; gap: 10px; }
 
     .match-item {
       background: var(--cream);
@@ -303,29 +251,11 @@
       font-family: inherit;
     }
 
-    .match-item:active,
-    .match-item:hover { background: var(--cream-dark); }
+    .match-item:active, .match-item:hover { background: var(--cream-dark); }
+    .match-item:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: 2px; }
+    .match-item .match-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; color: var(--text-dark); }
+    .match-item .match-tap { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
 
-    .match-item:focus-visible {
-      outline: 2px solid var(--gold-dark);
-      outline-offset: 2px;
-    }
-
-    .match-item .match-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px;
-      font-weight: 400;
-      color: var(--text-dark);
-    }
-
-    .match-item .match-tap {
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    /* ── SEAT RESULT ── */
     .seat-result {
       text-align: center;
       padding: 28px 20px;
@@ -355,7 +285,6 @@
       display: inline-block;
       background: linear-gradient(135deg, var(--gold-dark), var(--gold));
       color: #fff;
-      /* FIX: Use Jost (sans-serif) so numbers render as digits, not roman-numeral-like glyphs */
       font-family: 'Jost', sans-serif;
       font-size: 38px;
       font-weight: 400;
@@ -367,13 +296,7 @@
       margin: 0 auto 16px;
     }
 
-    .table-word {
-      font-size: 10px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--gold-dark);
-      margin-top: 4px;
-    }
+    .table-word { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-dark); margin-top: 4px; }
 
     .search-again-btn {
       margin-top: 18px;
@@ -391,53 +314,17 @@
     }
 
     .search-again-btn:active { border-color: var(--gold-muted); color: var(--gold-dark); }
-    .search-again-btn:focus-visible {
-      outline: 2px solid var(--gold-dark);
-      outline-offset: 3px;
-    }
+    .search-again-btn:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: 3px; }
 
-    .not-found {
-      text-align: center;
-      padding: 20px;
-    }
+    .not-found { text-align: center; padding: 20px; }
+    .not-found p { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--text-mid); font-style: italic; margin-bottom: 8px; }
+    .not-found small { font-size: 12px; color: var(--text-light); font-weight: 300; }
 
-    .not-found p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px;
-      color: var(--text-mid);
-      font-style: italic;
-      margin-bottom: 8px;
-    }
-
-    .not-found small {
-      font-size: 12px;
-      color: var(--text-light);
-      font-weight: 300;
-    }
-
-    /* ── MAP SECTION ── */
     .map-section { margin-top: 36px; }
 
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .section-title span {
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--text-light);
-      white-space: nowrap;
-    }
-
-    .section-title-line {
-      flex: 1;
-      height: 0.5px;
-      background: var(--cream-mid);
-    }
+    .section-title { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .section-title span { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-light); white-space: nowrap; }
+    .section-title-line { flex: 1; height: 0.5px; background: var(--cream-mid); }
 
     .map-frame {
       position: relative;
@@ -448,37 +335,26 @@
       box-shadow: 0 4px 24px var(--shadow);
     }
 
-    .map-frame img {
-      width: 100%;
-      display: block;
-    }
+    .map-frame img { width: 100%; display: block; }
 
-    /* SVG overlay sits on top of the map image */
     .map-overlay {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       pointer-events: none;
     }
 
-    /* Pulsing animation for the highlighted table ring */
-    @keyframes hlPulse {
-      0%, 100% { opacity: 1; stroke-width: 3; }
-      40%       { opacity: 0; stroke-width: 5; }
-      60%       { opacity: 0; stroke-width: 5; }
+    /* Single blink keyframe — no duplicates anywhere in this file */
+    @keyframes hlBlink {
+      0%, 44%  { opacity: 1; }
+      50%, 94% { opacity: 0; }
+      100%     { opacity: 1; }
     }
 
-    .hl-ring-active {
-      animation: hlPulse 1.8s ease-in-out infinite;
-    }
+    #hlRing.blinking { animation: hlBlink 1.1s step-end infinite; }
+    #hlFill.blinking { animation: hlBlink 1.1s step-end infinite; }
 
-    /* ── FOOTER ── */
-    .footer {
-      margin-top: 48px;
-      text-align: center;
-    }
+    .footer { margin-top: 48px; text-align: center; }
 
     .footer-ornament {
       display: flex;
@@ -499,12 +375,7 @@
       background: var(--gold-muted);
     }
 
-    .footer p {
-      font-size: 11px;
-      color: var(--text-light);
-      letter-spacing: 0.12em;
-      font-weight: 300;
-    }
+    .footer p { font-size: 11px; color: var(--text-light); letter-spacing: 0.12em; font-weight: 300; }
 
     .field-error {
       display: block;
@@ -516,17 +387,12 @@
       min-height: 16px;
     }
 
-    .field-wrap input[aria-invalid="true"] {
-      border-color: #b04a2a;
-      box-shadow: 0 0 0 3px rgba(176,74,42,0.12);
-    }
+    .field-wrap input[aria-invalid="true"] { border-color: #b04a2a; box-shadow: 0 0 0 3px rgba(176,74,42,0.12); }
 
     .sr-only {
       position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
       overflow: hidden;
       clip: rect(0,0,0,0);
       white-space: nowrap;
@@ -540,7 +406,6 @@
 
 <div class="page-wrapper">
 
-  <!-- HEADER -->
   <header class="header" role="banner">
     <div class="logo-wrap" role="img" aria-label="Wedding logo">
       <img src="logo.png" alt="A logo showing the letters 'H' and 'S' with two butterflies" role="presentation"
@@ -557,7 +422,6 @@
     <div class="divider-line"></div>
   </div>
 
-  <!-- SEARCH CARD -->
   <main id="main-content">
     <div class="card" role="search" aria-label="Table seat finder">
       <p class="card-label" id="form-heading" aria-hidden="true">Your Name</p>
@@ -566,54 +430,26 @@
         <div class="field-group">
           <div class="field-wrap">
             <label for="firstName">First Name</label>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              placeholder="e.g. Hemali"
-              autocomplete="given-name"
-              autocorrect="off"
-              autocapitalize="words"
-              spellcheck="false"
-              aria-required="true"
-              aria-describedby="firstName-error name-hint"
-            />
+            <input type="text" id="firstName" name="firstName" placeholder="e.g. Hemali"
+              autocomplete="given-name" autocorrect="off" autocapitalize="words" spellcheck="false"
+              aria-required="true" aria-describedby="firstName-error name-hint" />
             <span id="firstName-error" class="field-error" role="alert" aria-live="polite"></span>
           </div>
           <div class="field-wrap">
             <label for="lastName">Last Name</label>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              placeholder="e.g. Shah"
-              autocomplete="family-name"
-              autocorrect="off"
-              autocapitalize="words"
-              spellcheck="false"
-              aria-required="true"
-              aria-describedby="lastName-error"
-            />
+            <input type="text" id="lastName" name="lastName" placeholder="e.g. Shah"
+              autocomplete="family-name" autocorrect="off" autocapitalize="words" spellcheck="false"
+              aria-required="true" aria-describedby="lastName-error" />
             <span id="lastName-error" class="field-error" role="alert" aria-live="polite"></span>
           </div>
         </div>
         <p id="name-hint" class="sr-only">Enter at least your first or last name to search the guest list.</p>
-
-        <button type="submit" class="search-btn" aria-label="Search for my table assignment">
-          Find My Table
-        </button>
+        <button type="submit" class="search-btn" aria-label="Search for my table assignment">Find My Table</button>
       </form>
 
-      <div
-        id="resultsArea"
-        role="region"
-        aria-label="Search results"
-        aria-live="polite"
-        aria-atomic="true"
-      ></div>
+      <div id="resultsArea" role="region" aria-label="Search results" aria-live="polite" aria-atomic="true"></div>
     </div>
 
-    <!-- MAP SECTION -->
     <section class="map-section" aria-labelledby="map-heading">
       <div class="section-title">
         <h2 class="sr-only" id="map-heading">Seating Chart Map</h2>
@@ -622,33 +458,18 @@
       </div>
 
       <div class="map-frame">
-        <img
-          id="seatingMapImg"
-          src="IMG_0357.png"
+        <img id="seatingMapImg" src="IMG_0357.png"
           alt="Seating chart showing the layout of all tables in the reception venue"
-          onerror="this.style.display='none'"
-        />
-        <!--
-          SVG overlay — coordinates are based on the original image dimensions (1240 × 870).
-          The viewBox matches, so the circles scale perfectly as the image resizes.
-          hlRing animates with a pulse; hlFill is a soft gold wash inside the circle.
-          Both start invisible (opacity 0) and are shown by highlightTable().
-        -->
-        <svg
-          id="mapHighlightSvg"
-          class="map-overlay"
-          viewBox="0 0 1240 870"
-          preserveAspectRatio="xMidYMid meet"
-          aria-hidden="true"
-        >
-          <circle id="hlFill" r="50" fill="rgba(201,168,76,0.28)" opacity="0" />
+          onerror="this.style.display='none'" />
+        <svg id="mapHighlightSvg" class="map-overlay"
+          viewBox="0 0 1240 870" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <circle id="hlFill" r="50" fill="rgba(201,168,76,0.3)" opacity="0" />
           <circle id="hlRing" r="50" fill="none" stroke="#C9A84C" stroke-width="3.5" opacity="0" />
         </svg>
       </div>
     </section>
   </main>
 
-  <!-- FOOTER -->
   <footer class="footer" role="contentinfo">
     <div class="footer-ornament" aria-hidden="true">✦</div>
     <p>Wishing you a wonderful evening</p>
@@ -656,55 +477,49 @@
 
 </div>
 
-<!-- Papa Parse for CSV -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script>
 let guestData = [];
 
-// ── TABLE COORDINATES ──────────────────────────────────────────────────────────
-// These x/y values map each table number to its centre point in the seating chart
-// image, which has a natural size of 1240 × 870 px. The SVG overlay uses the same
-// viewBox, so the highlight circles scale correctly at any display size.
 const TABLE_COORDS = {
-   1: {x: 447, y: 410},
-   2: {x: 768, y: 410},
-   3: {x: 340, y: 325},
-   4: {x: 833, y: 325},
-   5: {x: 340, y: 418},
-   6: {x: 833, y: 418},
-   7: {x: 340, y: 513},
-   8: {x: 833, y: 513},
-   9: {x: 340, y: 605},
-  10: {x: 833, y: 605},
-  11: {x: 340, y: 697},
-  12: {x: 833, y: 697},
-  13: {x: 262, y: 232},
-  14: {x: 951, y: 232},
-  15: {x: 262, y: 325},
-  16: {x: 951, y: 325},
-  17: {x: 262, y: 418},
-  18: {x: 951, y: 418},
-  19: {x: 262, y: 513},
-  20: {x: 951, y: 513},
-  21: {x: 262, y: 605},
-  22: {x: 951, y: 605},
-  23: {x: 262, y: 697},
-  24: {x: 951, y: 697},
-  25: {x: 152, y: 232},
-  26: {x:1062, y: 232},
-  27: {x: 152, y: 325},
-  28: {x:1062, y: 325},
-  29: {x: 152, y: 418},
-  30: {x:1062, y: 418},
-  31: {x: 152, y: 513},
-  32: {x:1062, y: 513},
-  33: {x: 152, y: 605},
-  34: {x:1062, y: 605},
-  35: {x: 152, y: 697},
-  36: {x:1062, y: 697}
+   1: {x: 447, y: 408},
+   2: {x: 773, y: 408},
+   3: {x: 346, y: 326},
+   4: {x: 873, y: 326},
+   5: {x: 346, y: 421},
+   6: {x: 873, y: 421},
+   7: {x: 346, y: 513},
+   8: {x: 873, y: 513},
+   9: {x: 346, y: 605},
+  10: {x: 873, y: 605},
+  11: {x: 346, y: 700},
+  12: {x: 873, y: 700},
+  13: {x: 251, y: 232},
+  14: {x: 966, y: 232},
+  15: {x: 251, y: 326},
+  16: {x: 966, y: 326},
+  17: {x: 251, y: 421},
+  18: {x: 966, y: 421},
+  19: {x: 251, y: 513},
+  20: {x: 966, y: 513},
+  21: {x: 251, y: 605},
+  22: {x: 966, y: 605},
+  23: {x: 251, y: 700},
+  24: {x: 966, y: 700},
+  25: {x: 156, y: 232},
+  26: {x:1063, y: 232},
+  27: {x: 156, y: 326},
+  28: {x:1063, y: 326},
+  29: {x: 156, y: 421},
+  30: {x:1063, y: 421},
+  31: {x: 156, y: 513},
+  32: {x:1063, y: 513},
+  33: {x: 156, y: 605},
+  34: {x:1063, y: 605},
+  35: {x: 156, y: 700},
+  36: {x:1063, y: 700}
 };
 
-// ── HIGHLIGHT A TABLE ON THE MAP ───────────────────────────────────────────────
 function highlightTable(tableNum) {
   const ring = document.getElementById('hlRing');
   const fill = document.getElementById('hlFill');
@@ -712,8 +527,10 @@ function highlightTable(tableNum) {
 
   const coords = TABLE_COORDS[parseInt(tableNum)];
   if (!coords) {
-    ring.setAttribute('opacity', '0');
-    fill.setAttribute('opacity', '0');
+    ring.style.opacity = '0';
+    fill.style.opacity = '0';
+    ring.classList.remove('blinking');
+    fill.classList.remove('blinking');
     return;
   }
 
@@ -722,62 +539,51 @@ function highlightTable(tableNum) {
   fill.setAttribute('cx', coords.x);
   fill.setAttribute('cy', coords.y);
 
-  fill.setAttribute('opacity', '1');
-  ring.setAttribute('opacity', '1');
+  // Remove blinking class first so animation restarts cleanly
+  ring.classList.remove('blinking');
+  fill.classList.remove('blinking');
 
-  // Restart the pulse animation cleanly on both circles
-  ring.classList.remove('hl-ring-active');
-  fill.classList.remove('hl-ring-active');
+  // Set visible via style (not setAttribute) so CSS animation can control opacity
+  ring.style.opacity = '1';
+  fill.style.opacity = '1';
+
+  // Force reflow to restart the animation from the beginning
   void ring.offsetWidth;
-  ring.classList.add('hl-ring-active');
-  fill.classList.add('hl-ring-active');
 
-  // Scroll the map into view so guests can see the highlight
+  ring.classList.add('blinking');
+  fill.classList.add('blinking');
+
   document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-// ── LOAD CSV ───────────────────────────────────────────────────────────────────
 Papa.parse('table.csv', {
   download: true,
   header: true,
   skipEmptyLines: true,
-  complete: function(results) {
-    guestData = results.data;
-  },
-  error: function() {
-    console.warn('CSV not found. Make sure table.csv is in the same folder.');
-  }
+  complete: function(results) { guestData = results.data; },
+  error: function() { console.warn('CSV not found. Make sure table.csv is in the same folder.'); }
 });
 
-function normalize(str) {
-  return (str || '').toLowerCase().trim();
-}
+function normalize(str) { return (str || '').toLowerCase().trim(); }
 
-// Levenshtein distance for fuzzy name matching
 function levenshtein(a, b) {
   const m = a.length, n = b.length;
   const dp = Array.from({ length: m + 1 }, (_, i) => [i]);
   for (let j = 0; j <= n; j++) dp[0][j] = j;
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
-      if (a[i - 1] === b[j - 1]) dp[i][j] = dp[i - 1][j - 1];
-      else dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+      if (a[i-1] === b[j-1]) dp[i][j] = dp[i-1][j-1];
+      else dp[i][j] = 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
     }
   }
   return dp[m][n];
 }
 
 function scoreName(guest, first, last) {
-  const gFirst = normalize(guest['First Name']);
-  const gLast  = normalize(guest['Last Name']);
-  return levenshtein(gFirst, first) + levenshtein(gLast, last);
+  return levenshtein(normalize(guest['First Name']), first) + levenshtein(normalize(guest['Last Name']), last);
 }
 
-// ── FORM SUBMIT ────────────────────────────────────────────────────────────────
-function handleSearchSubmit(e) {
-  if (e) e.preventDefault();
-  handleSearch();
-}
+function handleSearchSubmit(e) { if (e) e.preventDefault(); handleSearch(); }
 
 function setFieldError(fieldId, message) {
   const input = document.getElementById(fieldId);
@@ -809,19 +615,15 @@ function handleSearch() {
     return;
   }
 
-  if (guestData.length === 0) {
-    showMessage('Guest list is loading — please try again in a moment.');
-    return;
-  }
+  if (guestData.length === 0) { showMessage('Guest list is loading — please try again in a moment.'); return; }
 
   const scored = guestData.map(g => ({ guest: g, score: scoreName(g, first, last) }));
   scored.sort((a, b) => a.score - b.score);
 
   const bestScore = scored[0].score;
   const matches   = scored.filter(s => s.score <= bestScore + 1).slice(0, 6);
-
-  const area = document.getElementById('resultsArea');
-  area.innerHTML = '';
+  const area      = document.getElementById('resultsArea');
+  area.innerHTML  = '';
 
   if (matches.length === 0 || bestScore > 6) {
     area.innerHTML = `
@@ -838,7 +640,6 @@ function handleSearch() {
     showSeat(matches[0].guest);
   } else {
     window.currentMatches = matches;
-
     const listItems = matches.map((m, idx) => {
       const name = `${m.guest['First Name']} ${m.guest['Last Name']}${m.guest['Duplicate'] ? ' ' + m.guest['Duplicate'] : ''}`.trim();
       return `
@@ -863,13 +664,11 @@ function handleSearch() {
   }
 }
 
-function selectGuest(idx) {
-  showSeat(window.currentMatches[idx].guest);
-}
+function selectGuest(idx) { showSeat(window.currentMatches[idx].guest); }
 
 function showSeat(guest) {
-  const area  = document.getElementById('resultsArea');
-  const table = guest['Table Number'] || guest['Table'] || '—';
+  const area     = document.getElementById('resultsArea');
+  const table    = guest['Table Number'] || guest['Table'] || '—';
   const fullName = `${guest['First Name']} ${guest['Last Name']}${guest['Duplicate'] ? ' ' + guest['Duplicate'] : ''}`.trim();
 
   area.innerHTML = `
@@ -886,30 +685,25 @@ function showSeat(guest) {
       </div>
     </div>`;
 
-  // Focus result for screen reader announcement
   const result = area.querySelector('.seat-result');
   if (result) { result.setAttribute('tabindex', '-1'); result.focus(); }
 
-  // Highlight the table on the map
   highlightTable(table);
-
   area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function showMessage(msg) {
-  const area = document.getElementById('resultsArea');
-  area.innerHTML = `
+  document.getElementById('resultsArea').innerHTML = `
     <div class="results-section">
       <div class="not-found" role="alert"><p>${msg}</p></div>
     </div>`;
 }
 
 function resetSearch() {
-  // Hide the map highlight
   const ring = document.getElementById('hlRing');
   const fill = document.getElementById('hlFill');
-  if (ring) { ring.setAttribute('opacity', '0'); ring.classList.remove('hl-ring-active'); }
-  if (fill) fill.setAttribute('opacity', '0');
+  if (ring) { ring.style.opacity = '0'; ring.classList.remove('blinking'); }
+  if (fill) { fill.style.opacity = '0'; fill.classList.remove('blinking'); }
 
   document.getElementById('resultsArea').innerHTML = '';
   document.getElementById('firstName').value = '';
