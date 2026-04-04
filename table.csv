@@ -120,7 +120,7 @@ Soham,Dave,10,,FALSE
 Rucha,Dave,10,,FALSE
 Aahuti,Dave,10,,FALSE
 Shrie,Patel,10,,FALSE
-Krishna,Patel,10,Shrie,TRUE
+Krishna,Patel,10,(Shrie),TRUE
 Bansi,Patel,10,,FALSE
 Madhu,Patel,10,,FALSE
 Rushi,Dave,11,,FALSE
@@ -226,7 +226,7 @@ Max,Chizever,20,,FALSE
 ,,20,,FALSE
 ,,20,,FALSE
 Hemil,Amin,1,,FALSE
-Krishna,Patel,1,(Kishan),TRUE
+Krishna/Kishan,Patel,1,,FALSE
 Indira,Amin,1,,FALSE
 Biren,Amin,1,,FALSE
 Sonal,Amin,1,,FALSE
