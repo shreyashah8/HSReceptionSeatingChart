@@ -621,7 +621,7 @@ function handleSearch() {
   scored.sort((a, b) => a.score - b.score);
 
   const bestScore = scored[0].score;
-  const matches = scored.filter(s => s.score <= bestScore + 2).slice(0, 8);
+  const matches = scored.filter(s => s.score <= (bestScore === 0 ? 0 : bestScore + 1)).slice(0, 6);
   const area      = document.getElementById('resultsArea');
   area.innerHTML  = '';
 
