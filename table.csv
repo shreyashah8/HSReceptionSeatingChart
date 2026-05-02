@@ -50,7 +50,7 @@ Shyam,Pandya,8,,FALSE
 Shalin,Patel,8,,FALSE
 Vraj,Dave,8,,FALSE
 Priya,Dave,8,,FALSE
-Kyla,,8,,FALSE
+Kyla,Madigan,8,,FALSE
 Andrew,Eppley,10,,FALSE
 Max,Lipovsek,10,,FALSE
 Jordyn,Lemons,10,,FALSE
@@ -346,6 +346,7 @@ Pina,Patel,31,,FALSE
 Divyesh,Patel,29,,FALSE
 Megha,Patel,29,,FALSE
 Dhrisha,Patel,29,,FALSE
+Daxa,Patel,29,(Vipul),TRUE
 Vipul,Patel,29,,FALSE
 Kishan,Patel,29,(Jinal),TRUE
 Jinal,Patel,29,,FALSE
